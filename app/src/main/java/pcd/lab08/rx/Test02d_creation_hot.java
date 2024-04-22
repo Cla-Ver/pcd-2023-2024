@@ -24,7 +24,11 @@ public class Test02d_creation_hot {
 			}).start();
 		     //emitter.setCancellable(c::close);
 		 });
-		
+		//Questo invece è chiamato HOT perchè inizia a computare anche se non ci sono sottoscrittori.
+		//Si fa un publish sul flusso e si chiama connect per renderlo hot.
+		//Si può vedere, tramite le stampe, che all'inizio c'è solo SOURCE, e solamente dopo viene sottoscritto un altro oggetto, che riceve solo i numeri che produce da quel punto in poi
+		//Questo può avere il vantaggio che potrei voler osservare un fenomeno il cui flusso esiste a priori e non può essere rigenerato, o se non si vuole perdere elementi.
+		//Anche se, in generale, sono più utili i flussi cold
 		ConnectableObservable<Integer> hotObservable = source.publish();
 		hotObservable.connect();
 	

@@ -32,7 +32,8 @@ public class Test03a_sched_subscribeon {
 		Observable<Integer> src = Observable.just(100)	
 			.map(v -> { log("map 1 " + v); return v * v; })		
 			.map(v -> { log("map 2 " + v); return v + 1; });		
-
+			//SubscribeOn fa eseguire la computazione a thread diversi
+			//I due flussi vengono eseguiti concorrentemente su thread diversi
 		src
 			.subscribeOn(Schedulers.computation()) 	
 			.subscribe(v -> {									
@@ -54,11 +55,13 @@ public class Test03a_sched_subscribeon {
 		 * and merging their results back into a single flow 
 		 * warning: flatMap => no order in merging
 		 */
-
+		/*
+		 * BlockingSubscribe è utile per osservare i valori prodotti, usando il thread chiamante (in questo caso il main). E' un punto di sincronizzazione.
+		 */
 		Flowable.range(1, 1000)
 		  .flatMap(v ->
-		      Flowable.just(v)
-		        .subscribeOn(Schedulers.computation())
+		      Flowable.just(v) // Vengono generati 1000 flussi, computati da vari thread in parallelo. La flatMap poi riunisce tutti i flussi in uno unico (senza preservarne l'ordine)
+		        .subscribeOn(Schedulers.computation()) //Se non chiamo subscribeOn, la computazione viene eseguita dal main. In questo caso, il Flowable principale viene eseguito dal main, mentre tutti i flussi interni dai vari thread.
 				.map(w -> { log("map " + w); return w * w; })		// by the RX comp thread;
 		  )
 		  .blockingSubscribe(v -> {

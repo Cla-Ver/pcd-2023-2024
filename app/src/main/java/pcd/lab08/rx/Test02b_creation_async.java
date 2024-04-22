@@ -7,7 +7,8 @@ public class Test02b_creation_async {
 	public static void main(String[] args) throws Exception {
 
 		log("Creating an observable (cold) using its own thread.");
-
+		//Viene creato un altro thread che funge da generatore.
+		//Sono chiamati "cold" perchè la creazione degli elementi inizia solamente quando c'è almeno un subscriber, che avviene in un altro thread
 		Observable<Integer> source = Observable.create(emitter -> {		     
 			new Thread(() -> {
 				int i = 0;
@@ -26,7 +27,8 @@ public class Test02b_creation_async {
 		Thread.sleep(1000);
 		
 		log("Subscribing A.");
-		
+		//Subscribe, in questo caso, ritorna subito: questo perchè a creare gli elementi è un altro thread e non il main.
+		//Quindi rende il programma asincrono
 		source.subscribe((s) -> {
 			log("Subscriber A: " + s); 
 		});	

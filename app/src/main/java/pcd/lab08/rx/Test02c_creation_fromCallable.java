@@ -7,7 +7,8 @@ public class Test02c_creation_fromCallable {
 	public static void main(String[] args) throws Exception {
 
 		System.out.println("\n=== TEST fromCallable | main thread ===\n");
-
+		//Codice che viene fatto eseguire su un altro thread e che torna un unico risultato
+		
 		Flowable.fromCallable(() -> {
 		    log("started.");
 		    Thread.sleep(1000); 

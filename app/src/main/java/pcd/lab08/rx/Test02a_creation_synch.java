@@ -8,12 +8,12 @@ public class Test02a_creation_synch {
 		
 	    log("Creating a observable (cold).");
 
-	    Observable<Integer> source = Observable.create(emitter -> {
+	    Observable<Integer> source = Observable.create(emitter -> { //Emitter è l'oggetto che mi permette di mettere degli elementi dentro il flusso
 	        for (int i = 0; i <= 2; i++) {
 	            log("source: " + i);
-	            emitter.onNext(i);
+	            emitter.onNext(i); //Prossimo elemento del flusso
 	        }
-	        emitter.onComplete();
+	        emitter.onComplete(); //Chiudo il flusso
 	    });
 
 	    log("Subscribing A");
