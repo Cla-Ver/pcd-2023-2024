@@ -13,7 +13,7 @@ public class HelloServiceImpl implements HelloService {
     public String sayHello(int n) {
     	    return "Hello, world! ==> " + n;
     }
-
+    
     public /* synchronized */ void sayHello(Message m) {
     		System.out.println("hello: "+m.getContent());
     	    // while (true) {} 

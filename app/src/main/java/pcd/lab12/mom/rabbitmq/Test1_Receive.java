@@ -30,7 +30,8 @@ public class Test1_Receive {
 			}
 		};
 
-		boolean autoAck = false;
+		boolean autoAck = false; //Lo si mette false quando, ad esempio, si vuole mandare un ack solo quando il messaggio è stato sia ricevuto sia elaborato.
+		//Serve ad esempio se il ricevitore va in crash: il mittente si tiene in memoria che non ha ricevuto un ack, permettendo di reinviare il messaggio quando il ricevitore torna online
 		channel.basicConsume(QUEUE_NAME, autoAck, deliverCallback, consumerTag -> {});
 	}
 }

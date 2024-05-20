@@ -13,7 +13,7 @@ public class Test04a_swing_pubsub {
 	static class MyFrame extends JFrame {	
 
 		private PublishSubject<Integer> stream;
-		
+		//PublishSubject è un canale su cui si può agilmente sottoscrivere e pubblicare
 		public MyFrame(PublishSubject<Integer> stream){
 			super("Swing + RxJava");
 			this.stream = stream;
@@ -45,7 +45,7 @@ public class Test04a_swing_pubsub {
 			.subscribe((v) -> {
 				System.out.println(Thread.currentThread().getName() + "click: "+System.currentTimeMillis());
 			});
-
+		//buffer, map e filter sono sullo stesso livello di esecuzione, però buffer prende come argomento un evento che ritorna qualcosa, e che quindi è su un livello diverso
 		clickStream
 			.buffer(clickStream.throttleWithTimeout(250, TimeUnit.MILLISECONDS))
 			.map(xs -> xs.size())

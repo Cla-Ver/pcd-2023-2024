@@ -16,11 +16,11 @@ public class Test0_Send {
 		Connection connection = factory.newConnection();
 
 		Channel channel = connection.createChannel();
-		channel.queueDeclare(QUEUE_NAME, false, false, false, null);
+		channel.queueDeclare(QUEUE_NAME, false, false, false, null); //Creare una coda sul nodo con quel nome. Se non c'è la crea, se c'è la mantiene
 
 		String message = "Hello World!";
 
-		channel.basicPublish(NO_EXCHANGE_USED, QUEUE_NAME, null, message.getBytes("UTF-8"));
+		channel.basicPublish(NO_EXCHANGE_USED, QUEUE_NAME, null, message.getBytes("UTF-8")); //Come la send, ma con ??, nome della coda, ??, byte del messaggio
 		System.out.println(" [x] Sent '" + message + "'");
 
 		channel.close();

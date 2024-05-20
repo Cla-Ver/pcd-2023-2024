@@ -22,7 +22,7 @@ public class Test0_Recv {
 			System.out.println(" [x] Received '" + message + "' by thread: " + Thread.currentThread().getName());
 		};
 
-		boolean autoAck = true;
+		boolean autoAck = true; //Quando riceve il messaggio, automaticamente invia un ack al ricevitore per dire che l'ha ricevuto 
 		String consumerTag = channel.basicConsume(QUEUE_NAME, autoAck, deliverCallback,
 				/* cancellation callback */ consTag -> {
 				});

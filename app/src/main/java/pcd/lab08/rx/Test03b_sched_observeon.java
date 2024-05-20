@@ -48,7 +48,7 @@ public class Test03b_sched_observeon {
 			.observeOn(Schedulers.computation()) 				// => use RX comp thread(s) downstream //Esegue su altri thread
 			.map(v -> { log("map 2 " + v); return v + 1; })		// by the RX comp thread
 			.blockingSubscribe(v -> {							// by the current thread (main thread = invoker) //Viene eseguito nuovamente dal thread chiamante (main)
-				log("sub " + v);
+				log("sub " + v);	// Osservazione in modo sincrono con blockingSubscribe
 			});
 
 		

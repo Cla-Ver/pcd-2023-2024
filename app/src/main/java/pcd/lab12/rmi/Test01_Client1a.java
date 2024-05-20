@@ -13,9 +13,9 @@ public class Test01_Client1a {
         String host = (args.length < 1) ? null : args[0];
         try {
             Registry registry = LocateRegistry.getRegistry(host);
-            HelloService obj = (HelloService) registry.lookup("helloObj");
+            HelloService obj = (HelloService) registry.lookup("helloObj"); //Per forza bisogna fare il cast perchè non è tipato
             
-            String response = obj.sayHello();
+            String response = obj.sayHello(); //Ora si possono invocare i metodi come se fossero in locale
             System.out.println("response: " + response);
             
             System.out.println("response: " + obj.sayHello(10));

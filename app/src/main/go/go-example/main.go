@@ -13,15 +13,15 @@ func main() {
 	time0 := time.Now()
 
 	/* a slice of channels */
-	var channels []chan Msg
+	var channels []chan Msg //è come un array di canali la cui dimensione è ignota e può variare nel tempo
 
 	/* spawning agents */
 	for i := 0; i < numAgents; i++ {
 		agentId := fmt.Sprintf("agent-%d", i)
-		ch := spawnMyAgent(agentId)
+		ch := spawnMyAgent(agentId) //Restituisce il canale con cui comunicare con quell'agente
 
 		/* collecting agent channels */
-		channels = append(channels, ch)
+		channels = append(channels, ch) //
 	}
 
 	/* receiving messages */

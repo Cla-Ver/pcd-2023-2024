@@ -16,7 +16,7 @@ public class Test06a_backpressure_problem {
 		log("subscribing.");
 
 		/* generating a MissingBackpressureException after ~7000 emits (it depends on the local config) */
-
+		//Produce ogni 5, ma consuma ogni 100: dopo un po' il buffer di produzione si satura
 		source
 		.observeOn(Schedulers.computation())
 		.subscribe(v -> {
@@ -28,7 +28,7 @@ public class Test06a_backpressure_problem {
 
 		Thread.sleep(1000);
 	}
-
+	//(Non genera gli elementi quando viene osservato, ma a prescindere)
 	private static Flowable<Long> genHotStream(int delay) {
 		Flowable<Long> source = Flowable.create(emitter -> {
 			new Thread(() -> {
@@ -47,7 +47,7 @@ public class Test06a_backpressure_problem {
 					log("exit");
 				}
 			}).start();
-		}, BackpressureStrategy.ERROR);
+		}, BackpressureStrategy.ERROR); //Nessuna backpressure strategy, se occorre un errore lo segnala e basta
 
 		ConnectableFlowable<Long> hotObservable = source.publish();
 		hotObservable.connect();
